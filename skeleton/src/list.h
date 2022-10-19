@@ -18,16 +18,6 @@ struct cell {
 
 
 
-struct cell_sec {
-
-
-    char *MAJ;
-
-    char* fname;
-    char* lname;
-    char* zip;
-    struct cell_sec * next;
-};
 /* Allocates memory for a list structure and returns the pointer */
 struct list* new_list();
 

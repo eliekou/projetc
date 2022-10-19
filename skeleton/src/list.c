@@ -1,8 +1,4 @@
 #include "list.h"
-#include "string.h"
-//#include <erno.h>
-#include                     <stdio.h>
-#include <stdlib.h>
 
 /* Construction/Destruction
 ======================== */
@@ -175,9 +171,8 @@ int compare_cells(struct cell *a,struct cell *b){
 struct list* load_file(char* file_name){
 	struct list *l1;
 	l1 = new_list();//besoion d'utiliser new_list?
-	struct cell *c6;
-	c6 = make_cell("r","f","e");
-	push(l1,c6);
+	
+	
 
 	FILE *flecture;
     char line2[100];
@@ -191,7 +186,7 @@ struct list* load_file(char* file_name){
 		
 		struct cell *c1;
 		c1 = make_cell_from_line(line2);
-		//push(l1,c1);//problème car l1 vide?
+		// push(l1,c1);//problème car l1 vide?
         //Modification de la fonction avec la nouvelle fonction insert
 		insert(l1,c1);
 	}
@@ -205,11 +200,16 @@ struct list* load_file(char* file_name){
 void insert(struct list* lst, struct cell* c){
 	struct cell *cc ;
 
-	//cc = malloc(sizeof(struct cell));
+	
 	
 	cc = lst ->head;
     int result;
-	//printf("hello");
+
+	//Testage d'abord de si la liste n'est pas vide
+	if (cc == NULL){
+		lst->head = c;
+		return;
+	}
 	result = compare_cells(cc,c);
 	//printf("le résultat est%d",result);
     if (result>0){
@@ -228,18 +228,3 @@ void insert(struct list* lst, struct cell* c){
 
 }
 
-
-
-//2EME PARTIE: LISTE CHAINE
-
-struct cell_sec * make_cell2(char* fname, char* lname, char* zip) {
-
-	struct cell_sec *c;
-	c = malloc(sizeof(struct cell_sec));
-
-	c->fname = fname;
-	c->lname = lname;
-	c->zip = zip;
-
-	c->MAJ = fname[0];
-}

@@ -1,6 +1,6 @@
 #include <time.h>
 
-#include "list.h"
+#include "llist.h"
 
 int main(int argc, char *argv[]) {
     //struct list* l;
@@ -89,15 +89,33 @@ int main(int argc, char *argv[]) {
     // struct list *ltest;
     // char* adr = "large.txt";
     // ltest = load_file(adr);
-    // return 0;
+    // return 0; 
 
-    struct list *l;//Différence entre list et newlist?
+    struct list *l; //Différence entre list et newlist?
 
     l = load_file("data/small.txt");
+    // print_list(l);
+    // l = load_file("data/medium.txt");
+    // l = load_file("data/large.txt");
     print_list(l);
-    //l = load_file("data/medium.txt");
-    //print_list(l);
-    //free_list(l);
+    free_list(l);
+
+
+
+
+    printf("Deuxième partie");
+    //Deuxième partie: Structure de liste imbriquée
+
+    struct llist *llst;
+    llst = load_file_2("data/small.txt");
+    // // llst = load_file_2("data/large.txt");
+    // llst = load_file_2("data/medium.txt");
+
+    print_llist(llst);
+    new_free_llist(llst);
+    printf("c'est bon");
+    // print_list(llst->head->prop);
+    // // free_llist(llst);
 
     return 0;
    
