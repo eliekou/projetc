@@ -69,37 +69,7 @@ struct lcell* make_lcell(char MAJ, struct list *prop){
 }
 
 
-int compare_lcells(struct lcell *lca, struct lcell *lcb){
-  int res;
-  res = lca -> MAJ - lcb -> MAJ;
-  return res;
-}
 
-void new_insert(struct llist *lst, struct lcell *lca){
-  int result;
-  struct lcell *cc;
-  cc = lst -> head;
-
-  if (cc==NULL){
-    lst-> head = lca;
-    return;
-  }
-
-  result = compare_lcells(cc,lca);
-  if (result>0){
-		lca->next = lst->head;
-		lst->head = lca;
-	}
-  while((cc->next != NULL)&& compare_lcells(cc->next,lca)<=0){
-    cc = cc->next;
-    compare_lcells(cc,lca);
-
-  }
-  lca ->next = cc -> next;
-  cc->next =lca;
-
-
-}
 struct lcell* make_lcell_from_list(struct list *lst){
 
   if (lst == NULL){
@@ -122,72 +92,8 @@ struct lcell* make_lcell_from_list(struct list *lst){
 }
 
 
-struct lcell* search_maj(struct llist *lst, char MAJ){
-
-  struct lcell *cc;
-
-  if (lst == NULL){
-    printf("Error");
-    exit(1);
-  }
-
-  cc = lst ->head;
-
-  while (cc != NULL){
-    if (cc->MAJ == MAJ){
-      return cc;
-    }
-    cc = cc->next;
-  }
-  return NULL;
-}
 
 
-struct llist* load_llists(char* file_name){
-
-  struct llist *llst;
-  llst = new_llist();
-
-
-  FILE *flecture;
-  char line2[100];
-
-  flecture = fopen(file_name,"r");
-  if (flecture == NULL) {
-        printf("Error: File not recognized\n");
-    exit(1);
-  }
-
-  while (fgets(line2,50,flecture)!=NULL){
-
-    struct cell *c1;
-    c1 = make_cell_from_line(line2);
-    printf("On passe");
-    if (search_maj(llst,c1->fname[0])==NULL){
-      // char MAJ = c1->fname[0];
-
-      struct list *l3;
-      l3 = new_list();
-      insert(l3,c1);
-
-      struct lcell *lc;
-      lc = make_lcell_from_list(l3);
-      new_insert(llst,lc);
-    } 
-    else{
-
-      struct lcell *lc;
-
-      lc = search_maj(llst,c1->fname[0]);
-      
-      
-      insert(lc->prop,c1);
-
-    }
-  fclose(flecture);
-  }
-  return llst;
-}
 
 
 void print_lcell(struct lcell *lc){
@@ -246,7 +152,7 @@ void insert2(struct llist *llst, struct cell *c){
   struct lcell *lc;
   lc = llst->head;
 
-  //1er cas 
+  //1er cas: La llist ets nulle ou il faut placer la lcellule au debut de liste, en tete de liste
   if (lc == NULL || compare_lcells2(lc,c) < 0){
     
 
@@ -264,7 +170,7 @@ void insert2(struct llist *llst, struct cell *c){
   }
 
   while (lc->next !=NULL ){
-    //Deuxième cas
+    //Deuxième cas: Cas ou l'on va rajouter lc au milieu
     if (compare_lcells2(lc,c)>0 && (lc->next)!= NULL && compare_lcells2(lc->next,c)<0){
 
       struct list *lst;
@@ -281,7 +187,7 @@ void insert2(struct llist *llst, struct cell *c){
       return;
 
     }
-    //Troisième cas
+    //Troisième cas: Un lc est déja présent pour cette lettre, on a plus qu'à insert la cellule dans la liste associée.
     else if (compare_lcells2(lc,c)==0){
       
       insert(lc->prop,c);
@@ -310,7 +216,8 @@ struct  llist* load_file_2(char * filename){
   if (flecture == NULL) {
     printf("Error: File not recognized\n");
 		exit(1);
-	} 
+	}
+  int64_t t0 = get_time();
   while (fgets(line2,50,flecture)!= NULL){
 
 
@@ -321,9 +228,14 @@ struct  llist* load_file_2(char * filename){
 
 
   }
+  fclose(flecture);
+  int64_t ttotal = get_time() - t0;
+  printf("Le temps total pris par la méthode  optimisée est %lld",ttotal);
+
+  
+  
   return llst;
 
-  fclose(flecture);
 
 }
 

@@ -51,6 +51,8 @@ void insert(struct list* lst, struct cell* c);
 /* Loads the contents of a file in a sorted list */
 struct list* load_file(char* file_name);
 
+int64_t get_time();
+
 
 
 

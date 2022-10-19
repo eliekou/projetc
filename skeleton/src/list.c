@@ -1,7 +1,9 @@
 #include "list.h"
+#include <sys/time.h>
 
 /* Construction/Destruction
 ======================== */
+
 
 struct list* new_list() {
 	struct list* lst = (struct list*)malloc(sizeof(struct list));
@@ -27,9 +29,9 @@ static void free_cells(struct list *lst) {
 		tmp = cur;
 		cur = cur->next;
         // If dynamically allocated!
-        // free(tmp->fname);
-        // free(tmp->lname);
-        // free(tmp->zip);
+        free(tmp->fname);
+        free(tmp->lname);
+        free(tmp->zip);
 		free(tmp);
 	}
 	lst->head = NULL;
@@ -182,6 +184,8 @@ struct list* load_file(char* file_name){
         printf("Error: File not recognized\n");
 		exit(1);
 	} 
+	int64_t t0;
+	t0 = get_time();
 	while (fgets(line2,50,flecture)!= NULL){
 		
 		struct cell *c1;
@@ -190,9 +194,14 @@ struct list* load_file(char* file_name){
         //Modification de la fonction avec la nouvelle fonction insert
 		insert(l1,c1);
 	}
-	return l1;
-	
+
 	fclose(flecture);
+	int64_t ttotal = get_time() - t0;
+	printf("Le temps total pris par la méthode non optimisée est %lld",ttotal);
+	
+
+	return l1;
+
         
 	
 }
@@ -228,3 +237,12 @@ void insert(struct list* lst, struct cell* c){
 
 }
 
+int64_t get_time(){
+
+	struct timeval tp;
+	gettimeofday(&tp,NULL);
+	int64_t tpresent = tp.tv_usec;
+
+	return tpresent;
+
+}

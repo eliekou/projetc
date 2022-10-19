@@ -53,12 +53,7 @@ int main(int argc, char *argv[]) {
     // printf("%d",comp1);
     // return 0;
 
-    //Vérification du load_file- Question 2 
-
-    // struct list *ltest;
-    // char* adr = "large.txt";
-    // ltest = load_file(adr);
-    // return 0;
+ 
 
     //Vérification du insert- Question 3
     // struct list *l;//Différence entre list et newlist?
@@ -91,20 +86,20 @@ int main(int argc, char *argv[]) {
     // ltest = load_file(adr);
     // return 0; 
 
-    struct list *l; //Différence entre list et newlist?
+    struct list *lnew; //Différence entre list et newlist?
 
-    l = load_file("data/small.txt");
-    // print_list(l);
-    // l = load_file("data/medium.txt");
-    // l = load_file("data/large.txt");
-    print_list(l);
-    free_list(l);
-
-
+    lnew = load_file("data/small.txt");
+    
+    // // // lnew = load_file("data/medium.txt");
+    // // // lnew = load_file("data/large.txt");
+    print_list(lnew);
+    free_list(lnew);
 
 
-    printf("Deuxième partie");
-    //Deuxième partie: Structure de liste imbriquée
+
+
+    // printf("Deuxième partie");
+    // //Deuxième partie: Structure de liste imbriquée
 
     struct llist *llst;
     llst = load_file_2("data/small.txt");
@@ -113,9 +108,8 @@ int main(int argc, char *argv[]) {
 
     print_llist(llst);
     new_free_llist(llst);
-    printf("c'est bon");
-    // print_list(llst->head->prop);
-    // // free_llist(llst);
+    
+    
 
     return 0;
    

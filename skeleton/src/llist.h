@@ -1,5 +1,8 @@
-#include "list.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
+#include "list.h"
 struct llist {
     /* Your code here */
     struct lcell* head;
@@ -30,9 +33,6 @@ struct llist* new_llist();
 
 struct lcell* make_lcell(char MAJ, struct list* prop);
 
-int compare_lcells( struct lcell* lca, struct lcell* lcb);
-
-struct llist* load_llists(char* file_name);
 
 void print_lcell(struct lcell *lc);
 
@@ -40,14 +40,11 @@ void print_lcells(struct llist *llst);
 
 void print_llist(struct llist *llst);
 
-
-
-void new_insert(struct llist* llst, struct lcell* lc);
-
 int compare_lcells2( struct lcell* lca, struct cell* lcb);
 
 void insert2(struct llist* llst, struct cell* c);
 
-
 struct llist* load_file_2(char* file_name);
+
+int64_t get_time();
 
