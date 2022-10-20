@@ -39,18 +39,6 @@ void new_free_lcell(struct lcell* lca){
   free(lca);
 }
 
-// struct lcell* make_lcell(char MAJ,struct list* prop){
-//     struct lcell* lc;
-//     lc = malloc(sizeof(struct lcell));
-
-//     lc->MAJ = MAJ;
-//     lc->prop =prop;
-//     lc->next = NULL;
-
-
-//     return lc;
-// }
-
 
 struct lcell* make_lcell(char MAJ, struct list *prop){
   struct lcell *lca;
@@ -79,13 +67,6 @@ struct lcell* make_lcell_from_list(struct list *lst){
 
   struct lcell *lc;
 
-  //char MAJ;
-  // struct list* prop;//liste imbriquée
-  // struct lcell* next;//prochain lcell
-
-  // lc = malloc(sizeof(struct lcell ));
-  // prop = malloc(sizeof(struct list ));
-  // next = malloc(sizeof(struct lcell ));
 
   lc = make_lcell(lst->head->fname[0], lst);
   return lc;
